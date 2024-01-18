@@ -1,0 +1,89 @@
+@api =  https://xtx8e1n8k8.execute-api.us-east-1.amazonaws.com
+
+### create users
+POST {{api}}/register
+Content-Type: application/json
+
+{"nombres":"Daniela","apellidos":"Vanegas","user_name":"DaniV","email":"daniv@correo.com","password":"dani1708"}
+
+
+### login
+POST {{api}}/login
+Content-Type: application/json
+
+{"user_name":"DaniV","password":"dani1708"}
+
+# is_auth
+POST {{api}}/is_auth
+Content-Type: application/json
+{"headers": {"authorization": "Bearer YOUR_TOKEN"}, "cookies": {"jwt": "YOUR_COOKIE"}}
+
+# logout
+POST {{api}}/logout
+Content-Type: application/json
+{"headers": {"authorization": "Bearer YOUR_TOKEN"}, "cookies": {"jwt": "YOUR_COOKIE"}}
+
+
+
+### add fruits
+POST {{api}}/addFruit
+Content-Type: application/json
+{"nombre":"Pera","precio":"2050"}
+
+### gets fruits
+GET {{api}}/getsFruits
+
+### get single Fruits
+GET {{api}}/getOneFruit/2
+
+### update single fruit
+PUT {{api}}/updateOneFruit/3
+Content-Type: application/json
+
+{
+  "nombre": "Guanabana",
+  "precio": 1099
+}
+
+### delete single fruit
+DELETE {{api}}/deleteOneFruit/1
+
+
+### add User
+POST {{api}}/addUsers
+Content-Type: application/json
+{"nombres":"Daniela","apellidos":"Vanegas","user_name":"DaniV","email":"daniv@correo.com","password":"dani1708"}
+
+### gets User
+GET {{api}}/getsUsers
+
+### get single User
+GET {{api}}/getOneUser/2
+
+### update single User
+PUT {{api}}/updateOneUser/3
+Content-Type: application/json
+{"nombres":"Daniela","apellidos":"Vanegas","user_name":"DaniV","email":"daniv@correo.com","password":"dani1708","id_status":1,"id_type_user":2}
+
+### delete single fruit
+DELETE {{api}}/deleteOneUser/1
+
+
+### add country
+POST {{api}}/addCounties
+Content-Type: application/json
+{"nombre":"Panamá","poblacion":"5 millones"}
+
+### gets countries
+GET {{api}}/getsCountries
+
+### get single country
+GET {{api}}/getOneCountry/2
+
+### update single fruit
+PUT {{api}}/updateOneCountry/3
+Content-Type: application/json
+{"nombre":"Guatemala","poblacion":"5 millones"}
+
+### delete single fruit
+DELETE {{api}}/deleteOneCountry/1

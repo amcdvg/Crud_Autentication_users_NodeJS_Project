@@ -1,0 +1,137 @@
+service: nodeJs-and-serverless-Project2
+frameworkVersion: '2 || 3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  lambdaHashingVersion: '20241001'
+  region: us-east-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource:
+        - arn:aws:dynamodb:us-east-1:381492118879:table/*
+
+functions:
+  register:
+    handler: auth/registerUser.register
+    events:
+      - httpApi:
+          path: '/register'
+          method: post
+  login:
+    handler: auth/logIn.login
+    events:
+      - httpApi:
+          path: '/login'
+          method: post
+  is_auth:
+    handler: auth/authentication.isAuth
+    events:
+      - httpApi:
+          path: '/is_auth'
+          method: post
+  logout:
+    handler: auth/logout.logout
+    events:
+      - httpApi:
+          path: '/logout'
+          method: post
+
+  readsFrutis:
+    handler: modules/fruit/getsFruits.read
+    events:
+      - httpApi:
+          path: /getsFruits
+          method: get
+  readOneFrutis:
+    handler: modules/fruit/getOneFruit.readOne
+    events:
+      - httpApi:
+          path: /getOneFruit/{id}
+          method: get
+  addFruit:
+    handler: modules/fruit/addFruits.create
+    events:
+      - httpApi:
+          path: /addFruit
+          method: post
+  deleteFruit:
+    handler: modules/fruit/deleteFruit.remove
+    events:
+      - httpApi:
+          path: /deleteOneFruit/{id}
+          method: delete
+  updateFruit:
+    handler: modules/fruit/updateFruit.remove
+    events:
+      - httpApi:
+          path: /updateOneFruit/{id}
+          method: put
+  
+  readsUsers:
+    handler: modules/users/getsUsers.read
+    events:
+      - httpApi:
+          path: /getsUsers
+          method: get
+  readOneUsers:
+    handler: modules/users/getOneUser.readOne
+    events:
+      - httpApi:
+          path: /getOneUser/{id}
+          method: get
+  addUsers:
+    handler: modules/users/addUsers.create
+    events:
+      - httpApi:
+          path: /addUsers
+          method: post
+  deleteUser:
+    handler: modules/users/deleteUser.remove
+    events:
+      - httpApi:
+          path: /deleteOneUser/{id}
+          method: delete
+  updateUser:
+    handler: modules/users/updateUsers.remove
+    events:
+      - httpApi:
+          path: /updateOneUser/{id}
+          method: put
+
+  readsCountries:
+    handler: modules/countries/getsCountries.read
+    events:
+      - httpApi:
+          path: /getsCountries
+          method: get
+  readOneCountry:
+    handler: modules/countries/getOneCountry.readOne
+    events:
+      - httpApi:
+          path: /getOneCountry/{id}
+          method: get
+  addCountries:
+    handler: modules/countries/addCountries.create
+    events:
+      - httpApi:
+          path: /addCounties
+          method: post
+  deleteCountry:
+    handler: modules/countries/deleteCountry.remove
+    events:
+      - httpApi:
+          path: /deleteOneCountry/{id}
+          method: delete
+  updateCountry:
+    handler: modules/countries/updateCountries.remove
+    events:
+      - httpApi:
+          path: /updateOneCountry/{id}
+          method: put
+        
+
+
+  
