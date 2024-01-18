@@ -1,92 +1,69 @@
-<!--
-title: 'AWS Simple HTTP Endpoint example in NodeJS'
-description: 'This template demonstrates how to make a simple HTTP API with Node.js running on AWS Lambda and API Gateway using the Serverless Framework.'
-layout: Doc
-framework: v3
-platform: AWS
-language: nodeJS
-authorLink: 'https://github.com/serverless'
-authorName: 'Serverless, inc.'
-authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
--->
 
-# Serverless Framework Node HTTP API on AWS
+# CRUD And Authentication Users NodeJS on Serverless Framework Node HTTP API on AWS
 
-This template demonstrates how to make a simple HTTP API with Node.js running on AWS Lambda and API Gateway using the Serverless Framework.
+This is a base project for user authentication, connection validation and also logout, likewise, it has some permissions modules according to the user to access the CRUD by assigning, such as the administrator, manager or programmer.
 
-This template does not include any kind of persistence (database). For more advanced examples, check out the [serverless/examples repository](https://github.com/serverless/examples/) which includes Typescript, Mongo, DynamoDB and other examples.
+On the other hand, the project was created in the NodeJS programming language, supported by the non-relational database DynamoDB from AW and is designed to make use of the Serverless Framework Node HTTP API on AWS.
 
 ## Usage
 
-### Deployment
+### Clone the Repository
 
-```
-$ serverless deploy
-```
 
-After deploying, you should see output similar to:
+To clone the repository, run the following command from your terminal
 
 ```bash
-Deploying aws-node-http-api-project to stage dev (us-east-1)
-
-✔ Service deployed to stack aws-node-http-api-project-dev (152s)
-
-endpoint: GET - https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/
-functions:
-  hello: aws-node-http-api-project-dev-hello (1.9 kB)
+$ git clone https://github.com/amcdvg/Crud_Autentication_users_NodeJS_Project.git
 ```
 
-_Note_: In current form, after deployment, your API is public and can be invoked by anyone. For production deployments, you might want to configure an authorizer. For details on how to do that, refer to [http event docs](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/).
 
-### Invocation
 
-After successful deployment, you can call the created application via HTTP:
+### Install NodeJS Packages
+
+To use this project, you should install Node package , run the following command from your terminal
 
 ```bash
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/
+cd "nodeJs (CRUD and Authentication User)"
+npm install
 ```
 
-Which should result in response similar to the following (removed `input` content for brevity):
 
-```json
-{
-  "message": "Go Serverless v2.0! Your function executed successfully!",
-  "input": {
-    ...
-  }
-}
-```
+### Create tables in DynamoDB on AWS
 
-### Local development
-
-You can invoke your function locally by using the following command:
+In the structure of the project we find a folder called data, if you enter this folder, you will find scripts in nodeJS to create each of the tables for this example, which is configured in your AWS cloud, you can configure it in the code fragment:
 
 ```bash
-serverless invoke local --function hello
+...
+AWS.config.update({
+  region: 'us-east-1',  // Reemplaza con tu región de AWS
+  accessKeyId: 'TU_ACCESS_KEY_ID',  // Reemplaza con tu access key ID
+  secretAccessKey: 'TU_SECRET_ACCESS_KEY',  // Reemplaza con tu secret access key
+});
+....
 ```
-
-Which should result in response similar to the following:
-
-```
-{
-  "statusCode": 200,
-  "body": "{\n  \"message\": \"Go Serverless v3.0! Your function executed successfully!\",\n  \"input\": \"\"\n}"
-}
-```
-
-
-Alternatively, it is also possible to emulate API Gateway and Lambda locally by using `serverless-offline` plugin. In order to do that, execute the following command:
+Then we execute the scripts from the console, like this:
 
 ```bash
-serverless plugin install -n serverless-offline
-```
 
-It will add the `serverless-offline` plugin to `devDependencies` in `package.json` file as well as will add it to `plugins` in `serverless.yml`.
-
-After installation, you can start local emulation with:
+node nameScripts.js
 
 ```
-serverless offline
+
+### Serverless Framework on AWS
+
+Once the tables are created in DynamoDB AWS, we need to create the lambdas functions and the Gateway APIs, to do this we execute the following command from our console:
+
+```bash
+Serverless deploy --verbose
+
 ```
 
-To learn more about the capabilities of `serverless-offline`, please refer to its [GitHub repository](https://github.com/dherault/serverless-offline).
+### Environment Variables
+
+For this project we have environment variables that will be used to create the user validation tonkens, in the .env file, you can modify them according to your needs, in this example we find the following environment variables:
+
+```bash
+JWT_SECRET_KEY=UnaClaveSecretaMuySegura123!#@$
+JWT_TIME_SESSION=60s
+JWT_TIME_COOKIE=60
+```
